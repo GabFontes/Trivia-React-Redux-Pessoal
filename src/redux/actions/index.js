@@ -6,7 +6,6 @@ export const userLogin = (payload) => ({
   payload,
 });
 
-
 export const token = (payload) => ({
   type: SAVE_TOKEN,
   payload,
