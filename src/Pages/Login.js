@@ -1,15 +1,29 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { userLogin } from '../redux/actions';
+import { setLocalStorage, getLocalStorage } from '../services/localStorage';
+import requestToken from '../services/requestAPI';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor() {
     super();
-
     this.state = {
       email: '',
       name: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  async handleClick(){
+    const { history, dispatch } = this.props;
+    dispatch(userLogin(this.state));
+    const returnToken = await requestToken();
+    setLocalStorage('token', returnToken);
+    console.log(getLocalStorage());
+    history.push('/trivia')
   }
 
   handleChange({ target: { value, name } }) {
@@ -21,6 +35,7 @@ export default class Login extends Component {
   render() {
     const { name, email } = this.state;
     return (
+      <>
       <form>
         <label htmlFor="email">
           <input
@@ -46,10 +61,15 @@ export default class Login extends Component {
           type="button"
           data-testid="btn-play"
           disabled={ name.length < 1 || email.length < 1 }
+          onClick={ this.handleClick }
         >
           Play
         </button>
       </form>
+        <Link to="/settings" type="button" data-testid="btn-settings" >Settings</Link>
+      </>
     );
   }
 }
+
+export default connect()(Login);
