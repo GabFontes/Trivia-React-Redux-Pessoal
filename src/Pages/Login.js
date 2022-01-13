@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { userLogin } from '../redux/actions';
-import { setLocalStorage, getLocalStorage } from '../services/localStorage';
+import { userLogin, token } from '../redux/actions';
+import { setLocalStorage } from '../services/localStorage';
 import requestToken from '../services/requestAPI';
 
 class Login extends Component {
@@ -20,10 +20,10 @@ class Login extends Component {
 
   async handleClick() {
     const { history, dispatch } = this.props;
-    dispatch(userLogin(this.state));
     const returnToken = await requestToken();
+    dispatch(userLogin(this.state));
+    dispatch(token(returnToken));
     setLocalStorage('token', returnToken);
-    console.log(getLocalStorage());
     history.push('/trivia');
   }
 
@@ -39,20 +39,22 @@ class Login extends Component {
       <>
         <form>
           <label htmlFor="email">
+            Email
             <input
               data-testid="input-gravatar-email"
-              onChange={ this.handleChange }
-              value={ email }
+              onChange={this.handleChange}
+              value={email}
               id="email"
               type="email"
               name="email"
             />
           </label>
           <label htmlFor="name">
+            Nome
             <input
               data-testid="input-player-name"
-              value={ name }
-              onChange={ this.handleChange }
+              value={name}
+              onChange={this.handleChange}
               type="text"
               id="name"
               name="name"
@@ -61,8 +63,8 @@ class Login extends Component {
           <button
             type="button"
             data-testid="btn-play"
-            disabled={ name.length < 1 || email.length < 1 }
-            onClick={ this.handleClick }
+            disabled={name.length < 1 || email.length < 1}
+            onClick={this.handleClick}
           >
             Play
           </button>

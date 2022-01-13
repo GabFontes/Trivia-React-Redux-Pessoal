@@ -5,18 +5,20 @@ const INITAL_STATE = {
   assertions: '',
   score: '',
   gravatarEmail: '',
+  token: '',
 };
 
 function user(state = INITAL_STATE, { type, payload }) {
   switch (type) {
-  case USER_LOGIN:
-    return {
-      ...state,
-      name: payload.name,
-      gravatarEmail: payload.email,
-    };
-  default:
-    return state;
+    case USER_LOGIN:
+      return {
+        ...state,
+        name: payload.name,
+        gravatarEmail: payload.email,
+        token: payload.token,
+      };
+    default:
+      return state;
   }
 }
 
