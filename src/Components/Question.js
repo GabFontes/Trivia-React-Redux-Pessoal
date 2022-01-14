@@ -22,7 +22,6 @@ export class Question extends Component {
       const results = [...answers, [question.correct_answer, 'correct-answer',
         Math.floor(Math.random() * (100 - 1)) + 1]];
       const alternatives = results.sort((a, b) => a[2] - b[2]);
-      console.log(alternatives);
       this.setState({ alternatives });
     }
   }

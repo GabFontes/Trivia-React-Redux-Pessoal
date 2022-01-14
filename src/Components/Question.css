@@ -1,7 +1,7 @@
-button[name='correct-answer'].answered {
-    border: 3px solid rgb(6, 240, 15);
-  }
-  
-  button[name*='wrong-answer'].answered {
-    border: 3px solid rgb(255, 0, 0);
-  }
+/* button[ name = 'correct-answer' ].answered {
+  border: 3px solid rgb(6, 240, 15);
+}
+
+button[ name *= 'wrong-answer' ].answered {
+  border: 3px solid red;
+} */
