@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import './Question.css';
 import toggleAnsweredClass from '../helpers';
+import { points } from '../redux/actions';
 
 const CORRECT_ANSWER = 'correct-answer';
 
@@ -31,8 +33,29 @@ export class Question extends Component {
     }
   }
 
-  handleClick = () => {
+  difficulty = () => {
+    const { question: { difficulty } } = this.props;
+    if (difficulty === 'medium') {
+      return 2;
+    }
+    if (difficulty === 'hard') {
+      return +'3';
+    }
+    return 1;
+  }
+
+  someDifficulty = () => {
+    const { timer, dispatch } = this.props;
+    const returnDifficulty = this.difficulty();
+    console.log(+'10' + (returnDifficulty * timer));
+    dispatch(points(+'10' + (returnDifficulty * timer)));
+  }
+
+  handleClick = ({ target: { name } }) => {
     const { returnPauseTimer } = this.props;
+    if (name === CORRECT_ANSWER) {
+      this.someDifficulty();
+    }
     returnPauseTimer();
     toggleAnsweredClass();
     this.setState({ hiddenButton: false });
@@ -77,4 +100,4 @@ Question.propTypes = {
   question: PropTypes.string,
 }.isRequired;
 
-export default Question;
+export default connect()(Question);

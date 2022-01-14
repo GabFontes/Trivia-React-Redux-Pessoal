@@ -1,9 +1,9 @@
-import { USER_LOGIN } from '../actions';
+import { SAVE_POINTS, USER_LOGIN } from '../actions';
 
 const INITAL_STATE = {
   name: '',
   assertions: '',
-  score: '',
+  score: 0,
   gravatarEmail: '',
 };
 
@@ -14,6 +14,11 @@ function user(state = INITAL_STATE, { type, payload }) {
       ...state,
       name: payload.name,
       gravatarEmail: payload.email,
+    };
+  case SAVE_POINTS:
+    return {
+      ...state,
+      score: state.score + payload,
     };
   default:
     return state;
