@@ -20,6 +20,13 @@ export class Question extends Component {
     this.getAlternatives();
   }
 
+  componentDidUpdate(prevProps) {
+    const { question } = this.props;
+    if (prevProps.question !== question) {
+      this.getAlternatives();
+    }
+  }
+
   getAlternatives = () => {
     const { question } = this.props;
     if (Object.keys(question).length > 0) {
@@ -47,7 +54,6 @@ export class Question extends Component {
   someDifficulty = () => {
     const { timer, dispatch } = this.props;
     const returnDifficulty = this.difficulty();
-    console.log(+'10' + (returnDifficulty * timer));
     dispatch(points(+'10' + (returnDifficulty * timer)));
   }
 
@@ -59,6 +65,15 @@ export class Question extends Component {
     returnPauseTimer();
     toggleAnsweredClass();
     this.setState({ hiddenButton: false });
+  }
+
+  onClickFunction = () => {
+    const { setNextQuestion, stopTimer, setDisabled } = this.props;
+    stopTimer();
+    setDisabled();
+    setNextQuestion();
+    toggleAnsweredClass();
+    this.setState({ hiddenButton: true });
   }
 
   render() {
@@ -84,9 +99,10 @@ export class Question extends Component {
             </button>
           ))}
           <button
-            hidden={ !disabled && hiddenButton }
+            hidden={ hiddenButton }
             data-testid="btn-next"
             type="button"
+            onClick={ this.onClickFunction }
           >
             Next
           </button>

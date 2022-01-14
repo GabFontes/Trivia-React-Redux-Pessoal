@@ -35,12 +35,29 @@ class Trivia extends Component {
     }
   }
 
+  setNextQuestion = () => {
+    const { currentQuestion, questions } = this.state;
+    const { history } = this.props;
+    if (currentQuestion === questions.length - 1) {
+      history.push('/feedback');
+    } else {
+      this.setState({
+        currentQuestion: currentQuestion + 1,
+        timer: 30,
+        pauseTimer: false,
+      });
+      this.gameTimer();
+    }
+  }
+
+  stopTimer = (interval) => clearInterval(interval);
+
   gameTimer = () => {
     const interval = setInterval(() => {
       const { timer, pauseTimer } = this.state;
       if (timer === 1 || pauseTimer) {
         this.setState({ disabled: true });
-        return clearInterval(interval);
+        this.stopTimer(interval);
       }
 
       this.setState({ timer: timer - 1 });
@@ -51,15 +68,28 @@ class Trivia extends Component {
     this.setState({ pauseTimer: true });
   }
 
+  setDisabled = () => {
+    this.setState({ disabled: false });
+  }
+
   timerTest = () => true;
 
   render() {
-    const { questions, currentQuestion, render, disabled, timer } = this.state;
+    const {
+      questions,
+      currentQuestion,
+      render,
+      disabled,
+      timer,
+    } = this.state;
     return (
       <div>
         <Header />
         { timer }
         {render && <Question
+          setDisabled={ this.setDisabled }
+          stopTimer={ this.stopTimer }
+          setNextQuestion={ this.setNextQuestion }
           timer={ timer }
           returnPauseTimer={ this.returnPauseTimer }
           disabled={ disabled }
