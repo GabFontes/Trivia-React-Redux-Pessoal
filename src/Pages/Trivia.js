@@ -12,11 +12,15 @@ class Trivia extends Component {
       questions: [],
       currentQuestion: 0,
       render: false,
+      timer: 30,
+      disabled: false,
+      pauseTimer: false,
     };
   }
 
   componentDidMount() {
     this.requestAPI();
+    this.gameTimer();
   }
 
   requestAPI = async () => {
@@ -31,12 +35,35 @@ class Trivia extends Component {
     }
   }
 
+  gameTimer = () => {
+    const interval = setInterval(() => {
+      const { timer, pauseTimer } = this.state;
+      if (timer === 1 || pauseTimer) {
+        this.setState({ disabled: true });
+        return clearInterval(interval);
+      }
+
+      this.setState({ timer: timer - 1 });
+    }, +'1000');
+  }
+
+  returnPauseTimer = () => {
+    this.setState({ pauseTimer: true });
+  }
+
+  timerTest = () => true;
+
   render() {
-    const { questions, currentQuestion, render } = this.state;
+    const { questions, currentQuestion, render, disabled, timer } = this.state;
     return (
       <div>
         <Header />
-        {render && <Question question={ questions[currentQuestion] } /> }
+        { timer }
+        {render && <Question
+          returnPauseTimer={ this.returnPauseTimer }
+          disabled={ disabled }
+          question={ questions[currentQuestion] }
+        /> }
       </div>
     );
   }
