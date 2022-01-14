@@ -23,21 +23,23 @@ export class Question extends Component {
     if (Object.keys(question).length > 0) {
       const answers = question.incorrect_answers
         .map((incorrect, index) => [incorrect, `wrong-answer-${index}`,
-          Math.floor(Math.random() * (100 - 1)) + 1]);
+          Math.floor(Math.random() * (100 - 1))]);
       const results = [...answers, [question.correct_answer, CORRECT_ANSWER,
-        Math.floor(Math.random() * (100 - 1)) + 1]];
+        Math.floor(Math.random() * (100 - 1))]];
       const alternatives = results.sort((a, b) => a[2] - b[2]);
       this.setState({ alternatives });
     }
   }
 
-  handleChange = () => {
+  handleClick = () => {
+    const { returnPauseTimer } = this.props;
+    returnPauseTimer();
     toggleAnsweredClass();
     this.setState({ hiddenButton: false });
   }
 
   render() {
-    const { question } = this.props;
+    const { question, disabled } = this.props;
     const { alternatives, hiddenButton } = this.state;
     return (
       <div>
@@ -50,15 +52,16 @@ export class Question extends Component {
               key={ index }
               id={ testid }
               name={ testid }
+              disabled={ disabled }
               type="button"
               data-testid={ testid }
-              onClick={ this.handleChange }
+              onClick={ this.handleClick }
             >
               {text}
             </button>
           ))}
           <button
-            hidden={ hiddenButton }
+            hidden={ !disabled && hiddenButton }
             data-testid="btn-next"
             type="button"
           >
