@@ -1,7 +1,7 @@
 const toggleAnsweredClass = () => {
   const alternatives = document.querySelectorAll('.questions');
   alternatives.forEach((button) => {
-    button.classList.toggle('answered');
+    button.classList.toggle(button.name === 'correct-answer' ? 'correct' : 'incorrect');
   });
 };
 
