@@ -25,7 +25,8 @@ export class Header extends Component {
   }
 
   render() {
-    const { name } = this.props;
+    const { name, score } = this.props;
+    console.log(score);
     const { hash } = this.state;
     return (
       <div>
@@ -42,7 +43,7 @@ export class Header extends Component {
         <p
           data-testid="header-score"
         >
-          PONTUAÇÃO: 0
+          {score}
         </p>
       </div>
     );
@@ -55,8 +56,9 @@ Header.propTypes = {
 }.isRequired;
 
 const mapStateToProps = (state) => ({
-  email: state.user.gravatarEmail,
-  name: state.user.name,
+  email: state.player.gravatarEmail,
+  name: state.player.name,
+  score: state.player.score,
 });
 
 export default connect(mapStateToProps)(Header);

@@ -60,6 +60,7 @@ class Trivia extends Component {
         <Header />
         { timer }
         {render && <Question
+          timer={ timer }
           returnPauseTimer={ this.returnPauseTimer }
           disabled={ disabled }
           question={ questions[currentQuestion] }
