@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { userLogin, token } from '../redux/actions';
 import { setLocalStorage } from '../services/localStorage';
-import requestToken from '../services/requestAPI';
+import { requestToken } from '../services/requestAPI';
 
 class Login extends Component {
   constructor() {
