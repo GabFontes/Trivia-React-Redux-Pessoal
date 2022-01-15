@@ -2,7 +2,7 @@ import { SAVE_POINTS, USER_LOGIN } from '../actions';
 
 const INITAL_STATE = {
   name: '',
-  assertions: '',
+  assertions: 0,
   score: 0,
   gravatarEmail: '',
 };
@@ -18,7 +18,8 @@ function user(state = INITAL_STATE, { type, payload }) {
   case SAVE_POINTS:
     return {
       ...state,
-      score: state.score + payload,
+      score: state.score + payload.score,
+      assertions: state.assertions + payload.assertions,
     };
   default:
     return state;
