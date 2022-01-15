@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import FeedBack from './Pages/Feedback';
 import Login from './Pages/Login';
+import Ranking from './Pages/Ranking';
 import Settings from './Pages/Settings';
 import Trivia from './Pages/Trivia';
-import Ranking from './Pages/Ranking';
 
 class Routes extends Component {
   render() {
