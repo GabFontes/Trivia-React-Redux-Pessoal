@@ -86,10 +86,10 @@ export class Question extends Component {
       <div>
         <p data-testid="question-category">{ question.category }</p>
         <p data-testid="question-text">{ question.question }</p>
-        <div data-testid="answer-options">
+        <div data-testid="answer-options" className="questions">
           { alternatives.map(([text, testid], index) => (
             <button
-              className="questions"
+              className={ testid === CORRECT_ANSWER ? 'correct' : 'incorrect' }
               key={ index }
               id={ testid }
               name={ testid }
