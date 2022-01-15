@@ -25,13 +25,13 @@ class Trivia extends Component {
 
   requestAPI = async () => {
     const { token } = this.props;
-    const questions = await getQuestions(token);
-    if (questions.response_code === 0) {
-      this.setState({ questions, render: true });
+    const getJson = await getQuestions(token);
+    if (getJson.response_code === 0) {
+      this.setState({ questions: getJson.results, render: true });
     } else {
       const requestNewToken = await requestToken();
-      const newReturnApi = await getQuestions(requestNewToken);
-      this.setState({ questions: newReturnApi, render: true });
+      const { results } = await getQuestions(requestNewToken);
+      this.setState({ questions: results, render: true });
     }
   }
 

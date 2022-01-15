@@ -6,5 +6,4 @@ export const requestToken = () => fetch(REQUEST_TOKEN)
   .then((data) => data.token);
 
 export const getQuestions = (token) => fetch(`${REQUEST_API}${token}`)
-  .then((response) => response.json())
-  .then((data) => data.results);
+  .then((response) => response.json());
