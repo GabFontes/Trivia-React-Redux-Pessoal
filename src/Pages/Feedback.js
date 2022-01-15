@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
 import { resetUserLogin } from '../redux/actions';
 
@@ -29,6 +30,7 @@ class FeedBack extends Component {
         >
           Play Again
         </button>
+        <Link data-testid="btn-ranking" to="/ranking">Ranking</Link>
       </div>
     );
   }
