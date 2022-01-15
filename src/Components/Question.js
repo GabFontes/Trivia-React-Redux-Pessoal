@@ -54,7 +54,10 @@ export class Question extends Component {
   someDifficulty = () => {
     const { timer, dispatch } = this.props;
     const returnDifficulty = this.difficulty();
-    dispatch(points(+'10' + (returnDifficulty * timer)));
+    dispatch(points({
+      score: +'10' + (returnDifficulty * timer),
+      assertions: +'1',
+    }));
   }
 
   handleClick = ({ target: { name } }) => {
