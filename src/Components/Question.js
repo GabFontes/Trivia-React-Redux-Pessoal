@@ -12,7 +12,6 @@ export class Question extends Component {
     super();
     this.state = {
       alternatives: [],
-      hiddenButton: true,
     };
   }
 
@@ -67,21 +66,19 @@ export class Question extends Component {
     }
     returnPauseTimer();
     toggleAnsweredClass();
-    this.setState({ hiddenButton: false });
   }
 
   onClickFunction = () => {
     const { setNextQuestion, stopTimer, setDisabled } = this.props;
-    stopTimer();
     setDisabled();
     setNextQuestion();
+    stopTimer();
     toggleAnsweredClass();
-    this.setState({ hiddenButton: true });
   }
 
   render() {
     const { question, disabled } = this.props;
-    const { alternatives, hiddenButton } = this.state;
+    const { alternatives } = this.state;
     return (
       <div>
         <p data-testid="question-category">{ question.category }</p>
@@ -102,7 +99,7 @@ export class Question extends Component {
             </button>
           ))}
           <button
-            hidden={ hiddenButton }
+            hidden={ !disabled }
             data-testid="btn-next"
             type="button"
             onClick={ this.onClickFunction }
