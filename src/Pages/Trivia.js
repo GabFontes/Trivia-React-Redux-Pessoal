@@ -5,6 +5,7 @@ import Header from '../Components/Header';
 import Question from '../Components/Question';
 import { getQuestions, requestToken } from '../services/requestAPI';
 import toggleAnsweredClass from '../helpers';
+// import toggleAnsweredClass from '../helpers';
 
 class Trivia extends Component {
   constructor() {
@@ -51,17 +52,20 @@ class Trivia extends Component {
     }
   }
 
-  stopTimer = (interval) => clearInterval(interval);
+  disableTimer = (interval) => {
+    this.setState({ disabled: true });
+    return clearInterval(interval);
+  }
 
   gameTimer = () => {
     const interval = setInterval(() => {
       const { timer, pauseTimer } = this.state;
-      if (timer === 0 || pauseTimer) {
-        this.setState({ disabled: true });
+      if (timer === 1) {
+        this.disableTimer(interval);
         toggleAnsweredClass();
-        return this.stopTimer(interval);
+      } else if (pauseTimer) {
+        this.disableTimer(interval);
       }
-
       this.setState({ timer: timer - 1 });
     }, +'1000');
   }
@@ -71,7 +75,8 @@ class Trivia extends Component {
   }
 
   setDisabled = () => {
-    this.setState({ disabled: false });
+    const { disabled } = this.state;
+    this.setState({ disabled: !disabled });
   }
 
   render() {

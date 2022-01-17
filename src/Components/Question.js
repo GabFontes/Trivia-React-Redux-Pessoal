@@ -60,19 +60,19 @@ export class Question extends Component {
   }
 
   handleClick = ({ target: { name } }) => {
-    const { returnPauseTimer } = this.props;
+    const { returnPauseTimer, setDisabled } = this.props;
     if (name === CORRECT_ANSWER) {
       this.someDifficulty();
     }
     returnPauseTimer();
+    setDisabled();
     toggleAnsweredClass();
   }
 
   onClickFunction = () => {
-    const { setNextQuestion, stopTimer, setDisabled } = this.props;
+    const { setNextQuestion, setDisabled } = this.props;
     setDisabled();
     setNextQuestion();
-    stopTimer();
     toggleAnsweredClass();
   }
 
