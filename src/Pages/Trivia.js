@@ -26,13 +26,13 @@ class Trivia extends Component {
   }
 
   requestAPI = async () => {
-    const { token } = this.props;
-    const getJson = await getQuestions(token);
+    const { token, configs } = this.props;
+    const getJson = await getQuestions(token, configs);
     if (getJson.response_code === 0) {
       this.setState({ questions: getJson.results, render: true });
     } else {
       const requestNewToken = await requestToken();
-      const { results } = await getQuestions(requestNewToken);
+      const { results } = await getQuestions(requestNewToken, configs);
       this.setState({ questions: results, render: true });
     }
   }
@@ -111,6 +111,7 @@ Trivia.propTypes = {
 
 const mapStateToProps = (state) => ({
   token: state.token,
+  configs: state.config,
 });
 
 export default connect(mapStateToProps)(Trivia);

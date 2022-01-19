@@ -2,6 +2,7 @@ export const USER_LOGIN = 'USER_LOGIN';
 export const SAVE_TOKEN = 'SAVE_TOKEN';
 export const SAVE_POINTS = 'SAVE_POINTS';
 export const RESET_USER_LOGIN = 'RESET_USER_LOGIN';
+export const SET_CONFIG = 'SET_CONFIG';
 
 export const userLogin = (payload) => ({
   type: USER_LOGIN,
@@ -20,4 +21,9 @@ export const points = (payload) => ({
 
 export const resetUserLogin = () => ({
   type: RESET_USER_LOGIN,
+});
+
+export const setSettings = (payload) => ({
+  type: SET_CONFIG,
+  payload,
 });
