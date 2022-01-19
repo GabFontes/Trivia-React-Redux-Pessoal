@@ -13,8 +13,7 @@ class ButtonRedirectLogin extends Component {
   }
 
     handleClick = () => {
-      const { history, dispatch } = this.props;
-      console.log(history);
+      const { dispatch } = this.props;
       dispatch(resetUserLogin());
       this.setState({ redirect: true });
     }
